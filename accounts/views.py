@@ -22,6 +22,7 @@ class RegisterS(Schema):
 
 @router.post("register/")
 def register(request, data: RegisterS):
+
     user = User(
         username=data.username,
         email=data.email,
@@ -37,3 +38,21 @@ def register(request, data: RegisterS):
         "bio": user.bio,
         "password":user.password
     }, "status": 200}
+
+
+
+class LoginS(Schema):
+    email:str
+    password:str
+
+@router.post("login/")
+def login(req,data:LoginS):
+    user = authenticate(username=data.email, password=data.password)
+    if user:
+        return {"message": "Login successful", "user": {
+            "username": user.username,
+            "email": user.email,
+            "fullname": user.fullname,
+            "bio": user.bio
+        }, "status": 200}
+    return {"message": "Invalid credentials", "status": 401}
