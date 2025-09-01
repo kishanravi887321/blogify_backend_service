@@ -4,5 +4,5 @@ from ..views import router as accounts_router
 
 router = NinjaAPI()
 
-router.add_router("/accounts", accounts_router)
+router.add_router("", accounts_router)
 

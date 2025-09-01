@@ -20,7 +20,7 @@ class RegisterS(Schema):
     bio: str
 
 
-@router.post("/register")
+@router.post("register/")
 def register(request, data: RegisterS):
     user = User(
         username=data.username,
@@ -30,4 +30,10 @@ def register(request, data: RegisterS):
     )
     user.set_password(data.password)
     user.save()
-    return {"message": "User registered successfully", "user": user}
+    return {"message": "User registered successfully", "user": {
+        "username": user.username,
+        "email": user.email,
+        "fullname": user.fullname,
+        "bio": user.bio,
+        "password":user.password
+    }, "status": 200}
