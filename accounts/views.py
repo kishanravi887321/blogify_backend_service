@@ -7,7 +7,7 @@ router=NinjaAPI()
 
 # // making the doctor route for check 
 
-router.get("/doctor")
-def doctor(req):
+@router.get("/doctor")
+def doctor(request):
     return {"message":"The API is working fine"}
-# Create your views here.
+
