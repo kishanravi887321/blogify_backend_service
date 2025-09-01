@@ -1,4 +1,4 @@
-from ..views import  router
+from .routes import  router
 
 from django.urls import path
 
