@@ -1,3 +1,4 @@
+from urllib import request
 from django.shortcuts import render
 from ninja import Router,Schema
 from django.contrib.auth import authenticate,get_user_model
@@ -46,8 +47,8 @@ class LoginS(Schema):
     password:str
 
 @router.post("login/")
-def login(req,data:LoginS):
-    user = authenticate(username=data.email, password=data.password)
+def login(request,data:LoginS):
+    user = authenticate(request,email=data.email, password=data.password)
     if user:
         return {"message": "Login successful", "user": {
             "username": user.username,
@@ -56,3 +57,5 @@ def login(req,data:LoginS):
             "bio": user.bio
         }, "status": 200}
     return {"message": "Invalid credentials", "status": 401}
+
+
