@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google ID Token Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        #tokenDisplay {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            word-break: break-all;
+            max-width: 80%;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Google ID Token Test</h1>
+    <div id="g_id_onload"
+         data-client_id="1043054844177-9l3ca7m2t84k0i8hifqda68jhaqe0r1j.apps.googleusercontent.com"
+         data-login_uri=""
+         data-auto_prompt="false">
+    </div>
+    <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left"></div>
+
+    <div id="tokenDisplay">ID Token will appear here after login.</div>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        function handleCredentialResponse(response) {
+            // response.credential contains the ID token
+            const tokenDisplay = document.getElementById('tokenDisplay');
+            tokenDisplay.textContent = `ID Token: ${response.credential}`;
+            console.log("Google ID Token:", response.credential);
+        }
+
+        window.onload = function() {
+            google.accounts.id.initialize({
+                client_id: "1043054844177-9l3ca7m2t84k0i8hifqda68jhaqe0r1j.apps.googleusercontent.com",
+                callback: handleCredentialResponse
+            });
+
+            google.accounts.id.renderButton(
+                document.querySelector('.g_id_signin'),
+                { theme: "outline", size: "large" }
+            );
+
+            // Optional: auto prompt for one-tap login
+            google.accounts.id.prompt(); 
+        };
+    </script>
+</body>
+</html>
