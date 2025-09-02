@@ -1,6 +1,9 @@
 from urllib import request
 from django.shortcuts import render
+from typing import Optional
 from ninja import Router,Schema
+from django.conf import settings
+from google.oauth2 import  id_token  as google_id_token
 from django.contrib.auth import authenticate,get_user_model
 
 router = Router()
@@ -59,3 +62,17 @@ def login(request,data:LoginS):
     return {"message": "Invalid credentials", "status": 401}
 
 
+class GoogleLoginS(Schema):
+    id_token: str
+
+@router.post("google-login/")
+def google_login(request, data: GoogleLoginS):
+    token=data.get("id_token")
+    try:
+        import  requests
+        idinfo = google_id_token.verify_oauth2_token(token,requests.Request(),settings.GOOGLE_CLIENT_ID)
+        email=idinfo.get("email")
+        print(email)
+
+    except ValueError:
+        raise ValueError({"message": "Invalid token", "status": 401})
