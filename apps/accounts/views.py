@@ -139,5 +139,91 @@ def refresh(request, data: RefreshS):
         return {"message": f"Invalid refresh token: {str(e)}", "status": 401}
 
 
+class UpdateProfileS(Schema):
+    username: Optional[str] = None
+    fullname: Optional[str] = None
+    bio: Optional[str] = None
+    location: Optional[str] = None
+    profile: Optional[str] = None
+    cover: Optional[str] = None
+    social_links: Optional[dict] = None
+
+
+@router.patch("/update-profile", auth=JWTAuth())
+def update_profile(request, data: UpdateProfileS):
+    user = request.auth
+    
+    # Update only the fields that are provided
+    update_fields = []
+    
+    if data.username is not None:
+        # Check if username is already taken by another user
+        if User.objects.filter(username=data.username).exclude(id=user.id).exists():
+            return {"message": "Username already taken", "status": 400}
+        user.username = data.username
+        update_fields.append('username')
+    
+    if data.fullname is not None:
+        user.fullname = data.fullname
+        update_fields.append('fullname')
+    
+    if data.bio is not None:
+        user.bio = data.bio
+        update_fields.append('bio')
+    
+    if data.location is not None:
+        user.location = data.location
+        update_fields.append('location')
+    
+    if data.profile is not None:
+        user.profile = data.profile
+        update_fields.append('profile')
+    
+    if data.cover is not None:
+        user.cover = data.cover
+        update_fields.append('cover')
+    
+    if data.social_links is not None:
+        user.social_links = data.social_links
+        update_fields.append('social_links')
+    
+    # Save only if there are fields to update
+    if update_fields:
+        user.save(update_fields=update_fields)
+        
+    return {
+        "message": "Profile updated successfully",
+        "user": {
+            "username": user.username,
+            "email": user.email,
+            "fullname": user.fullname,
+            "bio": user.bio,
+            "location": user.location,
+            "profile": user.profile,
+            "cover": user.cover,
+            "social_links": user.social_links
+        },
+        "status": 200
+    }
+
+
+@router.get("/profile", auth=JWTAuth())
+def get_profile(request):
+    user = request.auth
+    return {
+        "user": {
+            "username": user.username,
+            "email": user.email,
+            "fullname": user.fullname,
+            "bio": user.bio,
+            "location": user.location,
+            "profile": user.profile,
+            "cover": user.cover,
+            "social_links": user.social_links
+        },
+        "status": 200
+    }
+
+
 
 
