@@ -7,6 +7,7 @@ from google.oauth2 import  id_token  as google_id_token
 from django.contrib.auth import authenticate,get_user_model
 from auth.auth_tokens import create_access_token,create_refresh_token,decode_token,refresh_access_token
 router = Router()
+from .backend import JWTAuth
 User = get_user_model()
 # // making the doctor route for check
 
@@ -24,7 +25,7 @@ class RegisterS(Schema):
     bio: str
 
 
-@router.post("register/")
+@router.post("register")
 def register(request, data: RegisterS):
 
     user = User(
@@ -49,7 +50,7 @@ class LoginS(Schema):
     email:str
     password:str
 
-@router.post("login/")
+@router.post("login")
 def login(request,data:LoginS):
     user = authenticate(request,email=data.email, password=data.password)
     
@@ -70,7 +71,7 @@ def login(request,data:LoginS):
 class GoogleLoginS(Schema):
     id_token: str
 
-@router.post("google-login/")
+@router.post("google-login")
 def google_login(request, data: GoogleLoginS):
     token=data.get("id_token")
     try:
@@ -81,3 +82,11 @@ def google_login(request, data: GoogleLoginS):
 
     except ValueError:
         raise ValueError({"message": "Invalid token", "status": 401})
+    
+
+
+
+@router.get("protected", auth=JWTAuth())
+def protected(request):
+    user = request.auth    # <-- This is the User instance now
+    return {"message": f"Hello {user.username}, you are authenticated!"}

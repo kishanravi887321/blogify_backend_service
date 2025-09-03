@@ -1,6 +1,7 @@
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth import get_user_model
 from ninja.security import HttpBearer
+from auth.auth_tokens import decode_token
 User = get_user_model()
 
 class EmailBackend(ModelBackend):
@@ -20,7 +21,7 @@ class JWTAuth(HttpBearer):
         payload = decode_token(token)
         if payload and payload.get("type") == "access":
             try:
-                user = User.objects.get(id=payload["user_id"])
+                user = User.objects.get(email=payload["email"])
                 return user   # <-- returning the user object
             except User.DoesNotExist:
                 return None
