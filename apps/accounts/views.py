@@ -239,3 +239,18 @@ def change_password(request, data: UpdatePassS):
     user.save()
     return {"message": "Password changed successfully", "status": 200}
 
+
+class ForgetPassS(Schema):
+    email: str
+    otp: str
+    new_password: str
+
+@router.post("/forget-password")
+def forget_password(request, data: ForgetPassS):
+    user = User.objects.filter(email=data.email).first()
+    if not user:
+        return {"message": "User not found", "status": 404}
+ 
+    user.set_password(data.new_password)
+    user.save()
+    return {"message": "Password reset successfully", "status": 200}
