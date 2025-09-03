@@ -56,8 +56,8 @@ def register(request, data: RegisterS):
 
     if not data.otp:
         return {"message": "OTP is required", "status": 400}
-    if not cache.get(f"otp:registration:{email}")==data.otp:
-        return {"message": "Invalid or expired OTP", "status": 400}
+    if not cache.get(f"otp:register:{email}")==data.otp:
+        return {"message": "Invalid or expired OTP", "status": 403}
 
     user = User(
         username=username,
@@ -329,12 +329,12 @@ def auth_forget_password(request, data: ForgetPasswordOtpS):
 
 class RegistrationOtpS(Schema):
     email: str
-@router.post("/auth-registration")
+@router.post("/auth-register")
 def auth_registration(request, data: RegistrationOtpS):
     email = data.email.strip()
     user = User.objects.filter(email=email).first()
-    if not user:
-        return {"message": "User not found", "status": 401}
+    if  user:
+        return {"message": "User already exists", "status": 401}
 
     otp_sender = RegistrationOtpSender(user.email)
     otp_sender.send()
