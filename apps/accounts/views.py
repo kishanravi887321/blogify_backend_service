@@ -5,7 +5,7 @@ from ninja import Router,Schema
 from django.conf import settings
 from google.oauth2 import  id_token  as google_id_token
 from django.contrib.auth import authenticate,get_user_model
-
+from auth.auth_tokens import create_access_token,create_refresh_token,decode_token,refresh_access_token
 router = Router()
 User = get_user_model()
 # // making the doctor route for check
@@ -52,7 +52,10 @@ class LoginS(Schema):
 @router.post("login/")
 def login(request,data:LoginS):
     user = authenticate(request,email=data.email, password=data.password)
+    
     if user:
+        access_token = create_access_token({"email": user.email,"name":user.fullname})
+        refresh_token = create_refresh_token({"email": user.email,"name":user.fullname})  
         return {"message": "Login successful", "user": {
             "username": user.username,
             "email": user.email,
@@ -60,7 +63,7 @@ def login(request,data:LoginS):
             "bio": user.bio,
             "profile":user.profile,
             "cover":user.cover
-        }, "status": 200}
+        }, "access_token": access_token, "refresh_token": refresh_token, "status": 200}
     return {"message": "Invalid credentials", "status": 401}
 
 
