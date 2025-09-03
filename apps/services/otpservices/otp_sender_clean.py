@@ -732,351 +732,13 @@ class WelcomeEmailSender(BaseOtpEmailSender):
 
 
 
-
-class RegistrationOtpSender(BaseOtpEmailSender):
-    def __init__(self,email):
-        super().__init__(email,purpose="register")
-
-
-    def send(self):
-        otp = self.generate_otp()
-        subject = "📧 Sākṣin - Account Verification Required"
-        
-        html_content = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Account Verification</title>
-            <style>
-                @keyframes slideDown {{
-                    from {{ transform: translateY(-20px); opacity: 0; }}
-                    to {{ transform: translateY(0); opacity: 1; }}
-                }}
-                @keyframes subtlePulse {{
-                    0%, 100% {{ transform: scale(1); }}
-                    50% {{ transform: scale(1.02); }}
-                }}
-                .container {{
-                    max-width: 650px;
-                    margin: 0 auto;
-                    background: #f5f7fa;
-                    font-family: 'Arial', sans-serif;
-                    padding: 0;
-                }}
-                .header {{
-                    background: linear-gradient(135deg, #2b6cb0 0%, #3182ce 100%);
-                    padding: 40px 30px;
-                    text-align: center;
-                    color: white;
-                }}
-                .logo {{
-                    font-size: 28px;
-                    font-weight: 600;
-                    margin-bottom: 8px;
-                    letter-spacing: 1px;
-                }}
-                .subtitle {{
-                    font-size: 16px;
-                    opacity: 0.9;
-                    font-weight: 300;
-                }}
-                .content {{
-                    background: white;
-                    padding: 50px 40px;
-                    animation: slideDown 0.6s ease-out;
-                }}
-                .verify-badge {{
-                    width: 60px;
-                    height: 60px;
-                    background: linear-gradient(135deg, #2b6cb0, #3182ce);
-                    border-radius: 50%;
-                    margin: 0 auto 30px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 24px;
-                    color: white;
-                    animation: subtlePulse 3s infinite;
-                }}
-                .title {{
-                    color: #2b6cb0;
-                    font-size: 24px;
-                    font-weight: 600;
-                    margin: 0 0 20px 0;
-                    text-align: center;
-                }}
-                .description {{
-                    color: #4a5568;
-                    font-size: 16px;
-                    line-height: 1.6;
-                    text-align: center;
-                    margin-bottom: 35px;
-                }}
-                .otp-section {{
-                    background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);
-                    border: 2px solid #90cdf4;
-                    border-radius: 12px;
-                    padding: 30px;
-                    margin: 30px 0;
-                    text-align: center;
-                }}
-                .otp-label {{
-                    color: #2c5282;
-                    font-size: 14px;
-                    font-weight: 500;
-                    margin-bottom: 15px;
-                    text-transform: uppercase;
-                    letter-spacing: 1px;
-                }}
-                .otp {{
-                    font-size: 32px;
-                    font-weight: 700;
-                    color: #2b6cb0;
-                    letter-spacing: 6px;
-                    font-family: 'Courier New', monospace;
-                    margin: 0;
-                }}
-                .progress-section {{
-                    background: #f7fafc;
-                    border-radius: 8px;
-                    padding: 25px;
-                    margin: 30px 0;
-                }}
-                .progress-title {{
-                    color: #2d3748;
-                    font-weight: 600;
-                    margin-bottom: 20px;
-                    font-size: 16px;
-                    text-align: center;
-                }}
-                .progress-steps {{
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    position: relative;
-                }}
-                .progress-step {{
-                    text-align: center;
-                    flex: 1;
-                }}
-                .step-circle {{
-                    width: 36px;
-                    height: 36px;
-                    border-radius: 50%;
-                    margin: 0 auto 8px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-weight: 600;
-                    font-size: 14px;
-                }}
-                .step-completed {{
-                    background: #48bb78;
-                    color: white;
-                }}
-                .step-active {{
-                    background: #3182ce;
-                    color: white;
-                }}
-                .step-pending {{
-                    background: #e2e8f0;
-                    color: #a0aec0;
-                }}
-                .step-text {{
-                    font-size: 12px;
-                    color: #718096;
-                    font-weight: 500;
-                }}
-                .progress-line {{
-                    position: absolute;
-                    top: 18px;
-                    left: 25%;
-                    right: 25%;
-                    height: 2px;
-                    background: #e2e8f0;
-                    z-index: 1;
-                }}
-                .progress-fill {{
-                    height: 100%;
-                    background: #48bb78;
-                    width: 50%;
-                }}
-                .welcome-notice {{
-                    background: #f0fff4;
-                    border-left: 4px solid #48bb78;
-                    border-radius: 6px;
-                    padding: 20px;
-                    margin: 30px 0;
-                }}
-                .notice-title {{
-                    color: #276749;
-                    font-weight: 600;
-                    margin-bottom: 8px;
-                    font-size: 14px;
-                }}
-                .notice-text {{
-                    color: #2f855a;
-                    font-size: 14px;
-                    margin: 0;
-                }}
-                .features {{
-                    background: #f7fafc;
-                    border-radius: 8px;
-                    padding: 25px;
-                    margin: 30px 0;
-                }}
-                .feature {{
-                    display: flex;
-                    align-items: center;
-                    margin-bottom: 12px;
-                    font-size: 14px;
-                    color: #4a5568;
-                }}
-                .feature-icon {{
-                    margin-right: 12px;
-                    font-size: 16px;
-                }}
-                .footer {{
-                    background: #2d3748;
-                    color: #a0aec0;
-                    padding: 30px;
-                    text-align: center;
-                    font-size: 14px;
-                }}
-                .footer-link {{
-                    color: #63b3ed;
-                    text-decoration: none;
-                }}
-                .divider {{
-                    height: 1px;
-                    background: #e2e8f0;
-                    margin: 30px 0;
-                }}
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                <div class="header">
-                    <div class="logo">📧 Sākṣin</div>
-                    <div class="subtitle">Professional Interview Platform</div>
-                </div>
-                <div class="content">
-                    <div class="verify-badge">✓</div>
-                    <h1 class="title">Complete Your Registration</h1>
-                    <p class="description">
-                        Welcome to Sākṣin! You're one step away from accessing our professional interview platform. Please verify your email address using the code below.
-                    </p>
-                    
-                    <div class="progress-section">
-                        <div class="progress-title">Registration Progress</div>
-                        <div class="progress-steps">
-                            <div class="progress-line">
-                                <div class="progress-fill"></div>
-                            </div>
-                            <div class="progress-step">
-                                <div class="step-circle step-completed">✓</div>
-                                <div class="step-text">Account Created</div>
-                            </div>
-                            <div class="progress-step">
-                                <div class="step-circle step-active">2</div>
-                                <div class="step-text">Email Verification</div>
-                            </div>
-                            <div class="progress-step">
-                                <div class="step-circle step-pending">3</div>
-                                <div class="step-text">Complete Setup</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="otp-section">
-                        <div class="otp-label">Verification Code</div>
-                        <div class="otp">{otp}</div>
-                    </div>
-                    
-                    <div class="features">
-                        <h3 style="color: #2d3748; margin: 0 0 20px 0; font-size: 16px;">What's waiting for you:</h3>
-                        <div class="feature">
-                            <div class="feature-icon">🎯</div>
-                            <span>AI-powered interview simulations</span>
-                        </div>
-                        <div class="feature">
-                            <div class="feature-icon">📊</div>
-                            <span>Detailed performance analytics</span>
-                        </div>
-                        <div class="feature">
-                            <div class="feature-icon">🏆</div>
-                            <span>Industry-specific question banks</span>
-                        </div>
-                        <div class="feature">
-                            <div class="feature-icon">📈</div>
-                            <span>Progress tracking and improvement insights</span>
-                        </div>
-                    </div>
-                    
-                    <div class="welcome-notice">
-                        <div class="notice-title">🎯 Professional Development</div>
-                        <p class="notice-text">This verification code expires in 10 minutes. Keep this information confidential and secure.</p>
-                    </div>
-                    
-                    <div class="divider"></div>
-                    
-                    <p style="color: #718096; font-size: 14px; text-align: center; margin: 0;">
-                        If you didn't create this account, please ignore this email or contact our support team.
-                    </p>
-                </div>
-                <div class="footer">
-                    <p>© 2025 Sākṣin. All rights reserved.</p>
-                    <p>Support: <a href="mailto:support@saksin.ai" class="footer-link">support@saksin.ai</a></p>
-                    <p style="margin-top: 15px; font-size: 12px;">
-                        <a href="#" class="footer-link">Privacy Policy</a> | 
-                        <a href="#" class="footer-link">Terms of Service</a> | 
-                        <a href="#" class="footer-link">Help Center</a>
-                    </p>
-                </div>
-            </div>
-        </body>
-        </html>
-        """
-        
-        text_content = f"""
-        WELCOME TO BLOGIFY!
-        ===================
-        
-        Hello {self.username}!
-        
-        Welcome to Blogify, where your stories come to life! We're thrilled to have you 
-        join our community of passionate writers and creators.
-        
-        WHAT YOU CAN DO:
-        • Create beautiful posts with our rich editor
-        • Share your stories with readers worldwide  
-        • Track your content performance
-        • Connect with fellow writers
-        
-        Ready to start writing? Visit your dashboard and create your first post!
-        
-        Questions? Contact us at support@blogify.com
-        
-        Happy writing!
-        The Blogify Team
-        
-        ---
-        © 2025 Blogify. All rights reserved.
-        """
-
-        self.send_email(subject, text_content, html_content=html_content)
-        return "Welcome email sent successfully!"
-
-
 class RegistrationOtpSender(BaseOtpEmailSender):
     def __init__(self, email):
         super().__init__(email, purpose="register")
 
     def send(self):
         otp = self.generate_otp()
-        subject = "🚀 Welcome to Blogify - Verify Your Account"
+        subject = "✨ Welcome to Blogify - Your Creative Journey Starts Here!"
         
         html_content = f"""
         <!DOCTYPE html>
@@ -1084,13 +746,13 @@ class RegistrationOtpSender(BaseOtpEmailSender):
         <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Blogify Registration</title>
+            <title>Welcome to Blogify</title>
             <style>
-                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+                @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
                 
                 @keyframes fadeInUp {{
                     from {{ 
-                        transform: translateY(30px); 
+                        transform: translateY(40px); 
                         opacity: 0; 
                     }}
                     to {{ 
@@ -1099,21 +761,55 @@ class RegistrationOtpSender(BaseOtpEmailSender):
                     }}
                 }}
                 
-                @keyframes pulse {{
-                    0%, 100% {{ 
-                        transform: scale(1); 
-                        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+                @keyframes slideInLeft {{
+                    from {{ 
+                        transform: translateX(-50px); 
+                        opacity: 0; 
                     }}
-                    50% {{ 
-                        transform: scale(1.05); 
-                        box-shadow: 0 0 0 15px rgba(34, 197, 94, 0);
+                    to {{ 
+                        transform: translateX(0); 
+                        opacity: 1; 
                     }}
                 }}
                 
-                @keyframes sparkle {{
-                    0% {{ transform: rotate(0deg) scale(1); }}
-                    50% {{ transform: rotate(180deg) scale(1.1); }}
-                    100% {{ transform: rotate(360deg) scale(1); }}
+                @keyframes slideInRight {{
+                    from {{ 
+                        transform: translateX(50px); 
+                        opacity: 0; 
+                    }}
+                    to {{ 
+                        transform: translateX(0); 
+                        opacity: 1; 
+                    }}
+                }}
+                
+                @keyframes glowPulse {{
+                    0%, 100% {{ 
+                        transform: scale(1); 
+                        box-shadow: 0 0 20px rgba(99, 102, 241, 0.4), 0 0 40px rgba(99, 102, 241, 0.2);
+                    }}
+                    50% {{ 
+                        transform: scale(1.03); 
+                        box-shadow: 0 0 30px rgba(99, 102, 241, 0.6), 0 0 60px rgba(99, 102, 241, 0.3);
+                    }}
+                }}
+                
+                @keyframes floatingElements {{
+                    0%, 100% {{ transform: translateY(0px) rotate(0deg); }}
+                    33% {{ transform: translateY(-10px) rotate(2deg); }}
+                    66% {{ transform: translateY(5px) rotate(-2deg); }}
+                }}
+                
+                @keyframes textShimmer {{
+                    0% {{ background-position: -200% center; }}
+                    100% {{ background-position: 200% center; }}
+                }}
+                
+                @keyframes bounceIn {{
+                    0% {{ transform: scale(0.3) rotate(-10deg); opacity: 0; }}
+                    50% {{ transform: scale(1.05) rotate(5deg); }}
+                    70% {{ transform: scale(0.9) rotate(-2deg); }}
+                    100% {{ transform: scale(1) rotate(0deg); opacity: 1; }}
                 }}
                 
                 * {{
@@ -1124,325 +820,447 @@ class RegistrationOtpSender(BaseOtpEmailSender):
                 
                 body {{
                     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-                    background: linear-gradient(-45deg, #22c55e, #16a34a, #15803d, #14532d);
+                    background: linear-gradient(-45deg, #667eea, #764ba2, #667eea, #f093fb, #f5576c, #4facfe, #00f2fe);
                     background-size: 400% 400%;
+                    animation: gradientShift 15s ease infinite;
                     margin: 0;
                     padding: 20px;
+                    min-height: 100vh;
+                }}
+                
+                @keyframes gradientShift {{
+                    0% {{ background-position: 0% 50%; }}
+                    50% {{ background-position: 100% 50%; }}
+                    100% {{ background-position: 0% 50%; }}
                 }}
                 
                 .email-container {{
-                    max-width: 600px;
+                    max-width: 650px;
                     margin: 0 auto;
-                    background: white;
-                    border-radius: 20px;
+                    background: rgba(255, 255, 255, 0.95);
+                    backdrop-filter: blur(20px);
+                    border-radius: 24px;
                     overflow: hidden;
-                    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-                    animation: fadeInUp 0.8s ease-out;
+                    box-shadow: 
+                        0 32px 64px rgba(0, 0, 0, 0.2),
+                        0 16px 32px rgba(0, 0, 0, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+                    animation: fadeInUp 1s ease-out;
+                    border: 1px solid rgba(255, 255, 255, 0.2);
                 }}
                 
                 .header {{
-                    background: linear-gradient(135deg, #22C55E 0%, #16A34A 25%, #15803D 50%, #14532D 75%, #166534 100%);
-                    padding: 40px 30px;
+                    background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 25%, #EC4899 50%, #F59E0B 75%, #10B981 100%);
+                    background-size: 300% 300%;
+                    animation: gradientShift 8s ease infinite;
+                    padding: 50px 40px;
                     text-align: center;
                     position: relative;
                     overflow: hidden;
                 }}
                 
-                .sparkle {{
+                .header::before {{
+                    content: '';
                     position: absolute;
-                    color: rgba(255, 255, 255, 0.6);
-                    font-size: 16px;
-                    animation: sparkle 3s infinite;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: 
+                        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
                 }}
                 
-                .sparkle:nth-child(1) {{ top: 20%; left: 15%; animation-delay: 0s; }}
-                .sparkle:nth-child(2) {{ top: 30%; right: 20%; animation-delay: 1s; }}
-                .sparkle:nth-child(3) {{ bottom: 30%; left: 20%; animation-delay: 2s; }}
-                .sparkle:nth-child(4) {{ bottom: 20%; right: 15%; animation-delay: 0.5s; }}
+                .floating-element {{
+                    position: absolute;
+                    color: rgba(255, 255, 255, 0.6);
+                    font-size: 24px;
+                    animation: floatingElements 6s ease-in-out infinite;
+                    pointer-events: none;
+                }}
+                
+                .floating-element:nth-child(1) {{ top: 15%; left: 10%; animation-delay: 0s; }}
+                .floating-element:nth-child(2) {{ top: 25%; right: 15%; animation-delay: 2s; }}
+                .floating-element:nth-child(3) {{ bottom: 30%; left: 20%; animation-delay: 4s; }}
+                .floating-element:nth-child(4) {{ bottom: 20%; right: 25%; animation-delay: 1s; }}
+                .floating-element:nth-child(5) {{ top: 50%; left: 5%; animation-delay: 3s; }}
                 
                 .logo {{
                     position: relative;
-                    z-index: 1;
-                    font-size: 32px;
-                    font-weight: 700;
+                    z-index: 10;
+                    font-family: 'Poppins', sans-serif;
+                    font-size: 42px;
+                    font-weight: 800;
                     color: white;
-                    margin-bottom: 10px;
-                    letter-spacing: -0.5px;
+                    margin-bottom: 12px;
+                    letter-spacing: -1px;
+                    background: linear-gradient(45deg, #ffffff, #f8fafc, #ffffff);
+                    background-size: 200% auto;
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    animation: textShimmer 3s linear infinite;
+                    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
                 }}
                 
                 .tagline {{
                     position: relative;
-                    z-index: 1;
-                    color: rgba(255, 255, 255, 0.9);
-                    font-size: 16px;
-                    font-weight: 400;
+                    z-index: 10;
+                    color: rgba(255, 255, 255, 0.95);
+                    font-size: 18px;
+                    font-weight: 500;
                     letter-spacing: 0.5px;
+                    animation: slideInLeft 1s ease-out 0.3s both;
                 }}
                 
                 .content {{
-                    padding: 50px 40px;
+                    padding: 60px 50px;
                     background: white;
+                    position: relative;
                 }}
                 
-                .verification-icon {{
-                    width: 80px;
-                    height: 80px;
-                    background: linear-gradient(135deg, #22C55E, #16A34A);
+                .content::before {{
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    height: 6px;
+                    background: linear-gradient(90deg, #6366F1, #8B5CF6, #EC4899, #F59E0B, #10B981);
+                    background-size: 300% 100%;
+                    animation: gradientShift 4s ease infinite;
+                }}
+                
+                .verification-badge {{
+                    width: 100px;
+                    height: 100px;
+                    background: linear-gradient(135deg, #6366F1, #8B5CF6);
                     border-radius: 50%;
-                    margin: 0 auto 30px;
+                    margin: 0 auto 40px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    font-size: 36px;
-                    animation: pulse 2s infinite;
+                    font-size: 48px;
+                    animation: glowPulse 3s ease-in-out infinite;
+                    position: relative;
+                }}
+                
+                .verification-badge::after {{
+                    content: '';
+                    position: absolute;
+                    inset: -8px;
+                    border-radius: 50%;
+                    background: linear-gradient(45deg, #6366F1, #8B5CF6, #EC4899, #F59E0B);
+                    z-index: -1;
+                    animation: gradientShift 3s ease infinite;
+                    opacity: 0.3;
                 }}
                 
                 .title {{
+                    font-family: 'Poppins', sans-serif;
                     color: #1F2937;
-                    font-size: 28px;
+                    font-size: 36px;
                     font-weight: 700;
                     text-align: center;
-                    margin-bottom: 16px;
-                    letter-spacing: -0.5px;
+                    margin-bottom: 20px;
+                    letter-spacing: -1px;
+                    background: linear-gradient(135deg, #1F2937, #4B5563, #6B7280);
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    animation: slideInRight 1s ease-out 0.5s both;
                 }}
                 
                 .subtitle {{
                     color: #6B7280;
-                    font-size: 16px;
+                    font-size: 18px;
                     text-align: center;
-                    margin-bottom: 40px;
-                    line-height: 1.6;
+                    margin-bottom: 50px;
+                    line-height: 1.7;
+                    font-weight: 400;
+                    animation: fadeInUp 1s ease-out 0.7s both;
                 }}
                 
                 .otp-container {{
-                    background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
-                    border: 2px solid #BBF7D0;
-                    border-radius: 16px;
-                    padding: 32px;
-                    margin: 40px 0;
+                    background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+                    border: 3px solid transparent;
+                    background-clip: padding-box;
+                    border-radius: 20px;
+                    padding: 40px;
+                    margin: 50px 0;
                     text-align: center;
                     position: relative;
                     overflow: hidden;
+                    animation: bounceIn 0.8s ease-out 1s both;
                 }}
                 
                 .otp-container::before {{
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    padding: 3px;
+                    background: linear-gradient(45deg, #6366F1, #8B5CF6, #EC4899, #F59E0B, #10B981);
+                    border-radius: 20px;
+                    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                    mask-composite: exclude;
+                    animation: gradientShift 4s ease infinite;
+                }}
+                
+                .otp-container::after {{
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    height: 6px;
+                    background: linear-gradient(90deg, #6366F1, #8B5CF6, #EC4899);
+                    border-radius: 20px 20px 0 0;
+                }}
+                
+                .otp-label {{
+                    color: #374151;
+                    font-size: 14px;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 2px;
+                    margin-bottom: 20px;
+                    position: relative;
+                    z-index: 1;
+                }}
+                
+                .otp-code {{
+                    font-size: 48px;
+                    font-weight: 800;
+                    color: #6366F1;
+                    letter-spacing: 12px;
+                    font-family: 'Poppins', monospace;
+                    margin: 0;
+                    text-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+                    background: linear-gradient(45deg, #6366F1, #8B5CF6);
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    position: relative;
+                    z-index: 1;
+                    animation: textShimmer 2s ease infinite;
+                }}
+                
+                .features-grid {{
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                    gap: 24px;
+                    margin: 50px 0;
+                }}
+                
+                .feature-card {{
+                    background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+                    padding: 32px 24px;
+                    border-radius: 16px;
+                    text-align: center;
+                    border: 1px solid rgba(99, 102, 241, 0.1);
+                    transition: all 0.3s ease;
+                    position: relative;
+                    overflow: hidden;
+                    animation: fadeInUp 0.6s ease-out calc(1.2s + var(--delay, 0s)) both;
+                }}
+                
+                .feature-card:hover {{
+                    transform: translateY(-8px);
+                    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+                    border-color: rgba(99, 102, 241, 0.3);
+                }}
+                
+                .feature-card::before {{
                     content: '';
                     position: absolute;
                     top: 0;
                     left: 0;
                     right: 0;
                     height: 4px;
-                    background: linear-gradient(90deg, #22C55E, #16A34A, #15803D);
+                    background: linear-gradient(90deg, #6366F1, #8B5CF6, #EC4899);
+                    transform: scaleX(0);
+                    transition: transform 0.3s ease;
                 }}
                 
-                .otp-label {{
-                    color: #166534;
-                    font-size: 12px;
-                    font-weight: 600;
-                    text-transform: uppercase;
-                    letter-spacing: 1px;
-                    margin-bottom: 16px;
+                .feature-card:hover::before {{
+                    transform: scaleX(1);
                 }}
                 
-                .otp-code {{
+                .feature-icon {{
                     font-size: 40px;
-                    font-weight: 700;
-                    color: #22C55E;
-                    letter-spacing: 8px;
-                    font-family: 'Monaco', 'Menlo', monospace;
-                    margin: 0;
-                    text-shadow: 0 2px 4px rgba(34, 197, 94, 0.2);
-                }}
-                
-                .welcome-section {{
-                    background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
-                    border-radius: 12px;
-                    padding: 28px;
-                    margin: 32px 0;
-                    text-align: center;
-                }}
-                
-                .welcome-title {{
-                    color: #1E40AF;
-                    font-weight: 600;
-                    font-size: 18px;
                     margin-bottom: 16px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
+                    animation: bounceIn 0.6s ease-out calc(1.4s + var(--delay, 0s)) both;
                 }}
                 
-                .benefits-list {{
-                    color: #1D4ED8;
-                    font-size: 14px;
-                    line-height: 1.8;
-                    text-align: left;
-                    max-width: 400px;
-                    margin: 0 auto;
-                }}
-                
-                .benefits-list li {{
-                    margin-bottom: 8px;
-                    padding-left: 8px;
-                }}
-                
-                .security-note {{
-                    background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
-                    border-left: 4px solid #F59E0B;
-                    border-radius: 8px;
-                    padding: 20px;
-                    margin: 32px 0;
-                }}
-                
-                .note-title {{
-                    display: flex;
-                    align-items: center;
-                    color: #92400E;
+                .feature-title {{
+                    font-size: 18px;
                     font-weight: 600;
-                    font-size: 14px;
-                    margin-bottom: 8px;
+                    color: #374151;
+                    margin-bottom: 12px;
+                    font-family: 'Poppins', sans-serif;
                 }}
                 
-                .note-text {{
-                    color: #78350F;
+                .feature-desc {{
                     font-size: 14px;
+                    color: #6B7280;
                     line-height: 1.6;
-                    margin: 0;
                 }}
                 
                 .cta-section {{
                     text-align: center;
-                    margin: 40px 0;
+                    margin: 50px 0;
+                    animation: fadeInUp 1s ease-out 1.5s both;
                 }}
                 
                 .cta-button {{
                     display: inline-block;
-                    background: linear-gradient(135deg, #22C55E, #16A34A);
+                    background: linear-gradient(135deg, #6366F1, #8B5CF6);
                     color: white;
-                    padding: 16px 32px;
+                    padding: 18px 40px;
                     text-decoration: none;
-                    border-radius: 12px;
+                    border-radius: 16px;
                     font-weight: 600;
-                    font-size: 16px;
+                    font-size: 18px;
                     letter-spacing: 0.5px;
                     transition: all 0.3s ease;
-                    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+                    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
+                    position: relative;
+                    overflow: hidden;
+                }}
+                
+                .cta-button::before {{
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+                    transition: left 0.5s;
                 }}
                 
                 .cta-button:hover {{
-                    transform: translateY(-2px);
-                    box-shadow: 0 8px 25px rgba(34, 197, 94, 0.5);
+                    transform: translateY(-3px);
+                    box-shadow: 0 12px 40px rgba(99, 102, 241, 0.5);
+                }}
+                
+                .cta-button:hover::before {{
+                    left: 100%;
                 }}
                 
                 .footer {{
-                    background: #F9FAFB;
-                    padding: 32px;
+                    background: linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 100%);
+                    padding: 40px;
                     text-align: center;
                     border-top: 1px solid #E5E7EB;
-                }}
-                
-                .footer-text {{
-                    color: #6B7280;
-                    font-size: 14px;
-                    margin-bottom: 16px;
                 }}
                 
                 .social-links {{
                     display: flex;
                     justify-content: center;
-                    gap: 16px;
-                    margin-bottom: 20px;
+                    gap: 20px;
+                    margin-bottom: 24px;
                 }}
                 
                 .social-link {{
-                    width: 40px;
-                    height: 40px;
-                    background: #E5E7EB;
+                    width: 48px;
+                    height: 48px;
+                    background: linear-gradient(135deg, #E5E7EB, #D1D5DB);
                     border-radius: 50%;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     text-decoration: none;
                     color: #6B7280;
+                    font-size: 20px;
                     transition: all 0.3s ease;
                 }}
                 
                 .social-link:hover {{
-                    background: #22C55E;
+                    background: linear-gradient(135deg, #6366F1, #8B5CF6);
                     color: white;
-                    transform: translateY(-2px);
+                    transform: translateY(-3px) scale(1.1);
+                }}
+                
+                .footer-text {{
+                    color: #6B7280;
+                    font-size: 16px;
+                    margin-bottom: 20px;
+                    line-height: 1.6;
                 }}
                 
                 .copyright {{
                     color: #9CA3AF;
-                    font-size: 12px;
-                    margin-top: 16px;
+                    font-size: 13px;
+                    margin-top: 20px;
                 }}
                 
-                @media (max-width: 600px) {{
+                @media (max-width: 768px) {{
                     body {{ padding: 10px; }}
-                    .content {{ padding: 30px 20px; }}
-                    .title {{ font-size: 24px; }}
-                    .otp-code {{ font-size: 32px; letter-spacing: 4px; }}
+                    .content {{ padding: 40px 30px; }}
+                    .title {{ font-size: 28px; }}
+                    .otp-code {{ font-size: 36px; letter-spacing: 8px; }}
+                    .features-grid {{ grid-template-columns: 1fr; }}
+                    .logo {{ font-size: 32px; }}
                 }}
             </style>
         </head>
         <body>
             <div class="email-container">
                 <div class="header">
-                    <div class="sparkle">✨</div>
-                    <div class="sparkle">⭐</div>
-                    <div class="sparkle">💫</div>
-                    <div class="sparkle">🌟</div>
+                    <div class="floating-element">✨</div>
+                    <div class="floating-element">💫</div>
+                    <div class="floating-element">🌟</div>
+                    <div class="floating-element">⭐</div>
+                    <div class="floating-element">�</div>
                     
-                    <div class="logo">🚀 Blogify</div>
-                    <div class="tagline">Account Verification</div>
+                    <div class="logo">✍️ Blogify</div>
+                    <div class="tagline">Where Every Word Matters</div>
                 </div>
                 
                 <div class="content">
-                    <div class="verification-icon">✅</div>
+                    <div class="verification-badge">🎯</div>
                     
-                    <h1 class="title">Almost There!</h1>
+                    <h1 class="title">You're Almost In!</h1>
                     <p class="subtitle">
-                        Thank you for joining Blogify! You're just one step away from unlocking your creative potential. 
-                        Please verify your email address using the code below to complete your registration.
+                        Welcome to Blogify, the platform where creativity meets community! 
+                        You're just one step away from joining thousands of passionate writers. 
+                        Verify your email to unlock your creative potential.
                     </p>
                     
                     <div class="otp-container">
-                        <div class="otp-label">Verification Code</div>
+                        <div class="otp-label">Your Magic Code</div>
                         <div class="otp-code">{otp}</div>
                     </div>
                     
-                    <div class="welcome-section">
-                        <div class="welcome-title">
-                            🎯 What awaits you in Blogify:
+                    <div class="features-grid">
+                        <div class="feature-card" style="--delay: 0s;">
+                            <div class="feature-icon">🚀</div>
+                            <div class="feature-title">Launch Your Voice</div>
+                            <div class="feature-desc">Start publishing your thoughts, stories, and ideas with our powerful editor</div>
                         </div>
-                        <ul class="benefits-list">
-                            <li>✍️ <strong>Powerful Editor:</strong> Write with our intuitive, feature-rich editor</li>
-                            <li>🌐 <strong>Global Audience:</strong> Reach readers from around the world</li>
-                            <li>📊 <strong>Analytics Dashboard:</strong> Track your content's performance</li>
-                            <li>👥 <strong>Writer Community:</strong> Connect with fellow creators</li>
-                            <li>🎨 <strong>Customization:</strong> Personalize your author profile</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="security-note">
-                        <div class="note-title">
-                            🔒 Security Information
+                        <div class="feature-card" style="--delay: 0.1s;">
+                            <div class="feature-icon">🌍</div>
+                            <div class="feature-title">Global Community</div>
+                            <div class="feature-desc">Connect with readers and writers from around the world</div>
                         </div>
-                        <p class="note-text">
-                            This verification code expires in <strong>10 minutes</strong> for your security. 
-                            If you didn't create this account, please ignore this email. Your information is safe with us.
-                        </p>
+                        <div class="feature-card" style="--delay: 0.2s;">
+                            <div class="feature-icon">📊</div>
+                            <div class="feature-title">Track Your Impact</div>
+                            <div class="feature-desc">See how your content performs with detailed analytics</div>
+                        </div>
+                        <div class="feature-card" style="--delay: 0.3s;">
+                            <div class="feature-icon">💎</div>
+                            <div class="feature-title">Premium Tools</div>
+                            <div class="feature-desc">Access advanced formatting, SEO tools, and monetization options</div>
+                        </div>
                     </div>
                     
                     <div class="cta-section">
                         <a href="#" class="cta-button">Verify & Start Writing</a>
                     </div>
                     
-                    <p style="color: #6B7280; font-size: 14px; text-align: center; line-height: 1.6; margin-top: 30px;">
-                        After verification, you'll be redirected to your dashboard where you can start creating amazing content. 
-                        Need help? Our support team is ready to assist you at any time.
+                    <p style="color: #6B7280; font-size: 15px; text-align: center; line-height: 1.7; margin-top: 40px; padding: 20px; background: #F9FAFB; border-radius: 12px; border-left: 4px solid #6366F1;">
+                        <strong>Security Note:</strong> This verification code expires in <strong>10 minutes</strong>. 
+                        If you didn't create this account, simply ignore this email. Your email is safe with us.
                     </p>
                 </div>
                 
@@ -1452,15 +1270,17 @@ class RegistrationOtpSender(BaseOtpEmailSender):
                         <a href="#" class="social-link">🐦</a>
                         <a href="#" class="social-link">📘</a>
                         <a href="#" class="social-link">📱</a>
+                        <a href="#" class="social-link">💬</a>
                     </div>
                     <p class="footer-text">
-                        Questions? Contact us at 
-                        <a href="mailto:support@blogify.com" style="color: #22C55E; text-decoration: none;">support@blogify.com</a>
+                        Have questions? Our community team is here to help!<br>
+                        Contact us at <a href="mailto:hello@blogify.com" style="color: #6366F1; text-decoration: none; font-weight: 600;">hello@blogify.com</a>
                     </p>
                     <p class="copyright">
-                        © 2025 Blogify. All rights reserved. | 
-                        <a href="#" style="color: #9CA3AF; text-decoration: none;">Privacy Policy</a> | 
-                        <a href="#" style="color: #9CA3AF; text-decoration: none;">Terms of Service</a>
+                        © 2025 Blogify. Made with ❤️ for writers everywhere.<br>
+                        <a href="#" style="color: #9CA3AF; text-decoration: none;">Privacy</a> • 
+                        <a href="#" style="color: #9CA3AF; text-decoration: none;">Terms</a> • 
+                        <a href="#" style="color: #9CA3AF; text-decoration: none;">Help</a>
                     </p>
                 </div>
             </div>
