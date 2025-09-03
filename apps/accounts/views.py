@@ -34,6 +34,7 @@ def doctor(request):
 # ==================== REGISTER ====================
 class RegisterS(Schema):
     username: str
+    otp: str
     email: str
     password: str
     fullname: str
@@ -52,6 +53,11 @@ def register(request, data: RegisterS):
 
     if User.objects.filter(username=username).exists():
         return {"message": "This username already exists", "status": 400}
+
+    if not data.otp:
+        return {"message": "OTP is required", "status": 400}
+    if not cache.get(f"otp:registration:{email}")==data.otp:
+        return {"message": "Invalid or expired OTP", "status": 400}
 
     user = User(
         username=username,
@@ -317,6 +323,20 @@ def auth_forget_password(request, data: ForgetPasswordOtpS):
         return {"message": "User not found", "status": 401}
 
     otp_sender = ForgetPasswordOtpSender(user.email)
+    otp_sender.send()
+
+    return {"message": "OTP sent to email", "status": 200}
+
+class RegistrationOtpS(Schema):
+    email: str
+@router.post("/auth-registration")
+def auth_registration(request, data: RegistrationOtpS):
+    email = data.email.strip()
+    user = User.objects.filter(email=email).first()
+    if not user:
+        return {"message": "User not found", "status": 401}
+
+    otp_sender = RegistrationOtpSender(user.email)
     otp_sender.send()
 
     return {"message": "OTP sent to email", "status": 200}
