@@ -42,3 +42,4 @@ def refresh_access_token(refresh_token: str) -> str:
     # issue new access token using same user payload
     new_payload = {"user_id": payload["user_id"]}
     return create_access_token(new_payload)
+
