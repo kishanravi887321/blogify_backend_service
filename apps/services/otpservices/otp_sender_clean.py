@@ -1,4 +1,4 @@
-from .base_otp import BaseOtpEmailSender
+﻿from .base_otp import BaseOtpEmailSender
 
 class LoginOtpSender(BaseOtpEmailSender):
     def __init__(self, email):
@@ -6,7 +6,7 @@ class LoginOtpSender(BaseOtpEmailSender):
 
     def send(self):
         otp = self.generate_otp()
-        subject = "✍️ Blogify - Secure Login Verification"
+        subject = "âœï¸ Blogify - Secure Login Verification"
         
         html_content = f"""
         <!DOCTYPE html>
@@ -221,12 +221,12 @@ class LoginOtpSender(BaseOtpEmailSender):
         <body>
             <div class="email-container">
                 <div class="header">
-                    <div class="logo">✍️ Blogify</div>
+                    <div class="logo">âœï¸ Blogify</div>
                     <div class="tagline">Where Stories Come to Life</div>
                 </div>
                 
                 <div class="content">
-                    <div class="security-icon">🔐</div>
+                    <div class="security-icon">ðŸ”</div>
                     
                     <h1 class="title">Secure Login Verification</h1>
                     <p class="subtitle">
@@ -241,7 +241,7 @@ class LoginOtpSender(BaseOtpEmailSender):
                     
                     <div class="security-tips">
                         <div class="tips-title">
-                            🛡️ Security Best Practices
+                            ðŸ›¡ï¸ Security Best Practices
                         </div>
                         <ul class="tips-list">
                             <li>This code expires in <strong>10 minutes</strong> for your security</li>
@@ -263,7 +263,7 @@ class LoginOtpSender(BaseOtpEmailSender):
                         <a href="mailto:support@blogify.com" style="color: #8B5CF6; text-decoration: none;">support@blogify.com</a>
                     </p>
                     <p class="copyright">
-                        © 2025 Blogify. All rights reserved. | 
+                        Â© 2025 Blogify. All rights reserved. | 
                         <a href="#" style="color: #9CA3AF; text-decoration: none;">Privacy Policy</a> | 
                         <a href="#" style="color: #9CA3AF; text-decoration: none;">Terms of Service</a>
                     </p>
@@ -284,15 +284,15 @@ class LoginOtpSender(BaseOtpEmailSender):
         This code expires in 10 minutes for your security.
         
         SECURITY TIPS:
-        • Never share this code with anyone
-        • If you didn't request this login, secure your account immediately
-        • Contact support@blogify.com if you need assistance
+        â€¢ Never share this code with anyone
+        â€¢ If you didn't request this login, secure your account immediately
+        â€¢ Contact support@blogify.com if you need assistance
         
         Happy blogging!
         The Blogify Team
         
         ---
-        © 2025 Blogify. All rights reserved.
+        Â© 2025 Blogify. All rights reserved.
         """
 
         self.send_email(subject, text_content, html_content=html_content)
@@ -305,7 +305,7 @@ class ForgetPasswordOtpSender(BaseOtpEmailSender):
 
     def send(self):
         otp = self.generate_otp()
-        subject = "🔑 Blogify - Password Reset Verification"
+        subject = "ðŸ”‘ Blogify - Password Reset Verification"
         
         html_content = f"""
         <!DOCTYPE html>
@@ -454,12 +454,12 @@ class ForgetPasswordOtpSender(BaseOtpEmailSender):
         <body>
             <div class="email-container">
                 <div class="header">
-                    <div class="logo">🔑 Blogify</div>
+                    <div class="logo">ðŸ”‘ Blogify</div>
                     <div class="tagline">Password Recovery Service</div>
                 </div>
                 
                 <div class="content">
-                    <div class="reset-icon">🔓</div>
+                    <div class="reset-icon">ðŸ”“</div>
                     
                     <h1 class="title">Reset Your Password</h1>
                     <p class="subtitle">
@@ -474,7 +474,7 @@ class ForgetPasswordOtpSender(BaseOtpEmailSender):
                     
                     <div class="warning-section">
                         <div class="warning-title">
-                            ⚠️ Important Security Notice
+                            âš ï¸ Important Security Notice
                         </div>
                         <p class="warning-text">
                             If you didn't request this password reset, please ignore this email and contact our 
@@ -490,7 +490,7 @@ class ForgetPasswordOtpSender(BaseOtpEmailSender):
                         <a href="mailto:support@blogify.com" style="color: #EF4444; text-decoration: none;">support@blogify.com</a>
                     </p>
                     <p style="margin-top: 16px; color: #9CA3AF; font-size: 12px;">
-                        © 2025 Blogify. All rights reserved.
+                        Â© 2025 Blogify. All rights reserved.
                     </p>
                 </div>
             </div>
@@ -507,14 +507,14 @@ class ForgetPasswordOtpSender(BaseOtpEmailSender):
         Your verification code is: {otp}
         
         SECURITY NOTICE:
-        • This code expires in 10 minutes
-        • If you didn't request this reset, contact support immediately
-        • The code can only be used once for your protection
+        â€¢ This code expires in 10 minutes
+        â€¢ If you didn't request this reset, contact support immediately
+        â€¢ The code can only be used once for your protection
         
         Need help? Contact support@blogify.com
         
         ---
-        © 2025 Blogify. All rights reserved.
+        Â© 2025 Blogify. All rights reserved.
         """
 
         self.send_email(subject, text_content, html_content=html_content)
@@ -527,7 +527,7 @@ class WelcomeEmailSender(BaseOtpEmailSender):
         self.username = username or email
 
     def send(self):
-        subject = "🎉 Welcome to Blogify - Your Writing Journey Begins!"
+        subject = "ðŸŽ‰ Welcome to Blogify - Your Writing Journey Begins!"
         
         html_content = f"""
         <!DOCTYPE html>
@@ -651,12 +651,12 @@ class WelcomeEmailSender(BaseOtpEmailSender):
         <body>
             <div class="email-container">
                 <div class="header">
-                    <div class="logo">✍️ Blogify</div>
+                    <div class="logo">âœï¸ Blogify</div>
                     <div class="welcome-text">Welcome to the Community!</div>
                 </div>
                 
                 <div class="content">
-                    <h1 class="greeting">Hello {self.username}! 👋</h1>
+                    <h1 class="greeting">Hello {self.username}! ðŸ‘‹</h1>
                     <p class="intro-text">
                         Welcome to Blogify, where your stories come to life! We're thrilled to have you join our 
                         community of passionate writers, creators, and storytellers. Your writing journey starts now!
@@ -664,22 +664,22 @@ class WelcomeEmailSender(BaseOtpEmailSender):
                     
                     <div class="feature-grid">
                         <div class="feature-card">
-                            <div class="feature-icon">✍️</div>
+                            <div class="feature-icon">âœï¸</div>
                             <div class="feature-title">Rich Editor</div>
                             <div class="feature-desc">Create beautiful posts with our intuitive writing tools</div>
                         </div>
                         <div class="feature-card">
-                            <div class="feature-icon">🌍</div>
+                            <div class="feature-icon">ðŸŒ</div>
                             <div class="feature-title">Global Reach</div>
                             <div class="feature-desc">Share your stories with readers worldwide</div>
                         </div>
                         <div class="feature-card">
-                            <div class="feature-icon">📈</div>
+                            <div class="feature-icon">ðŸ“ˆ</div>
                             <div class="feature-title">Analytics</div>
                             <div class="feature-desc">Track your content performance and engagement</div>
                         </div>
                         <div class="feature-card">
-                            <div class="feature-icon">👥</div>
+                            <div class="feature-icon">ðŸ‘¥</div>
                             <div class="feature-title">Community</div>
                             <div class="feature-desc">Connect with fellow writers and readers</div>
                         </div>
@@ -692,7 +692,7 @@ class WelcomeEmailSender(BaseOtpEmailSender):
                         <a href="mailto:support@blogify.com" style="color: #667eea; text-decoration: none;">support@blogify.com</a>
                     </p>
                     <p style="margin-top: 16px; color: #9CA3AF; font-size: 12px;">
-                        © 2025 Blogify. All rights reserved.
+                        Â© 2025 Blogify. All rights reserved.
                     </p>
                 </div>
             </div>
@@ -710,10 +710,10 @@ class WelcomeEmailSender(BaseOtpEmailSender):
         join our community of passionate writers and creators.
         
         WHAT YOU CAN DO:
-        • Create beautiful posts with our rich editor
-        • Share your stories with readers worldwide  
-        • Track your content performance
-        • Connect with fellow writers
+        â€¢ Create beautiful posts with our rich editor
+        â€¢ Share your stories with readers worldwide  
+        â€¢ Track your content performance
+        â€¢ Connect with fellow writers
         
         Ready to start writing? Visit your dashboard and create your first post!
         
@@ -723,13 +723,11 @@ class WelcomeEmailSender(BaseOtpEmailSender):
         The Blogify Team
         
         ---
-        © 2025 Blogify. All rights reserved.
+        Â© 2025 Blogify. All rights reserved.
         """
 
         self.send_email(subject, text_content, html_content=html_content)
         return "Welcome email sent successfully!"
-
-
 
 
 class RegistrationOtpSender(BaseOtpEmailSender):
@@ -738,552 +736,190 @@ class RegistrationOtpSender(BaseOtpEmailSender):
 
     def send(self):
         otp = self.generate_otp()
-        subject = "✨ Welcome to Blogify - Your Creative Journey Starts Here!"
+        subject = "✨ Welcome to Blogify - Verify Your Account!"
         
         html_content = f"""
         <!DOCTYPE html>
-        <html>
+        <html lang="en">
         <head>
-            <meta charset="utf-8">
+            <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Welcome to Blogify</title>
-            <style>
-                @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
-                
-                @keyframes fadeInUp {{
-                    from {{ 
-                        transform: translateY(40px); 
-                        opacity: 0; 
-                    }}
-                    to {{ 
-                        transform: translateY(0); 
-                        opacity: 1; 
-                    }}
-                }}
-                
-                @keyframes slideInLeft {{
-                    from {{ 
-                        transform: translateX(-50px); 
-                        opacity: 0; 
-                    }}
-                    to {{ 
-                        transform: translateX(0); 
-                        opacity: 1; 
-                    }}
-                }}
-                
-                @keyframes slideInRight {{
-                    from {{ 
-                        transform: translateX(50px); 
-                        opacity: 0; 
-                    }}
-                    to {{ 
-                        transform: translateX(0); 
-                        opacity: 1; 
-                    }}
-                }}
-                
-                @keyframes glowPulse {{
-                    0%, 100% {{ 
-                        transform: scale(1); 
-                        box-shadow: 0 0 20px rgba(99, 102, 241, 0.4), 0 0 40px rgba(99, 102, 241, 0.2);
-                    }}
-                    50% {{ 
-                        transform: scale(1.03); 
-                        box-shadow: 0 0 30px rgba(99, 102, 241, 0.6), 0 0 60px rgba(99, 102, 241, 0.3);
-                    }}
-                }}
-                
-                @keyframes floatingElements {{
-                    0%, 100% {{ transform: translateY(0px) rotate(0deg); }}
-                    33% {{ transform: translateY(-10px) rotate(2deg); }}
-                    66% {{ transform: translateY(5px) rotate(-2deg); }}
-                }}
-                
-                @keyframes textShimmer {{
-                    0% {{ background-position: -200% center; }}
-                    100% {{ background-position: 200% center; }}
-                }}
-                
-                @keyframes bounceIn {{
-                    0% {{ transform: scale(0.3) rotate(-10deg); opacity: 0; }}
-                    50% {{ transform: scale(1.05) rotate(5deg); }}
-                    70% {{ transform: scale(0.9) rotate(-2deg); }}
-                    100% {{ transform: scale(1) rotate(0deg); opacity: 1; }}
-                }}
-                
-                * {{
-                    margin: 0;
-                    padding: 0;
-                    box-sizing: border-box;
-                }}
-                
-                body {{
-                    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-                    background: linear-gradient(-45deg, #667eea, #764ba2, #667eea, #f093fb, #f5576c, #4facfe, #00f2fe);
-                    background-size: 400% 400%;
-                    animation: gradientShift 15s ease infinite;
-                    margin: 0;
-                    padding: 20px;
-                    min-height: 100vh;
-                }}
-                
-                @keyframes gradientShift {{
-                    0% {{ background-position: 0% 50%; }}
-                    50% {{ background-position: 100% 50%; }}
-                    100% {{ background-position: 0% 50%; }}
-                }}
-                
-                .email-container {{
-                    max-width: 650px;
-                    margin: 0 auto;
-                    background: rgba(255, 255, 255, 0.95);
-                    backdrop-filter: blur(20px);
-                    border-radius: 24px;
-                    overflow: hidden;
-                    box-shadow: 
-                        0 32px 64px rgba(0, 0, 0, 0.2),
-                        0 16px 32px rgba(0, 0, 0, 0.1),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.8);
-                    animation: fadeInUp 1s ease-out;
-                    border: 1px solid rgba(255, 255, 255, 0.2);
-                }}
-                
-                .header {{
-                    background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 25%, #EC4899 50%, #F59E0B 75%, #10B981 100%);
-                    background-size: 300% 300%;
-                    animation: gradientShift 8s ease infinite;
-                    padding: 50px 40px;
-                    text-align: center;
-                    position: relative;
-                    overflow: hidden;
-                }}
-                
-                .header::before {{
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    background: 
-                        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
-                }}
-                
-                .floating-element {{
-                    position: absolute;
-                    color: rgba(255, 255, 255, 0.6);
-                    font-size: 24px;
-                    animation: floatingElements 6s ease-in-out infinite;
-                    pointer-events: none;
-                }}
-                
-                .floating-element:nth-child(1) {{ top: 15%; left: 10%; animation-delay: 0s; }}
-                .floating-element:nth-child(2) {{ top: 25%; right: 15%; animation-delay: 2s; }}
-                .floating-element:nth-child(3) {{ bottom: 30%; left: 20%; animation-delay: 4s; }}
-                .floating-element:nth-child(4) {{ bottom: 20%; right: 25%; animation-delay: 1s; }}
-                .floating-element:nth-child(5) {{ top: 50%; left: 5%; animation-delay: 3s; }}
-                
-                .logo {{
-                    position: relative;
-                    z-index: 10;
-                    font-family: 'Poppins', sans-serif;
-                    font-size: 42px;
-                    font-weight: 800;
-                    color: white;
-                    margin-bottom: 12px;
-                    letter-spacing: -1px;
-                    background: linear-gradient(45deg, #ffffff, #f8fafc, #ffffff);
-                    background-size: 200% auto;
-                    -webkit-background-clip: text;
-                    background-clip: text;
-                    animation: textShimmer 3s linear infinite;
-                    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-                }}
-                
-                .tagline {{
-                    position: relative;
-                    z-index: 10;
-                    color: rgba(255, 255, 255, 0.95);
-                    font-size: 18px;
-                    font-weight: 500;
-                    letter-spacing: 0.5px;
-                    animation: slideInLeft 1s ease-out 0.3s both;
-                }}
-                
-                .content {{
-                    padding: 60px 50px;
-                    background: white;
-                    position: relative;
-                }}
-                
-                .content::before {{
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    height: 6px;
-                    background: linear-gradient(90deg, #6366F1, #8B5CF6, #EC4899, #F59E0B, #10B981);
-                    background-size: 300% 100%;
-                    animation: gradientShift 4s ease infinite;
-                }}
-                
-                .verification-badge {{
-                    width: 100px;
-                    height: 100px;
-                    background: linear-gradient(135deg, #6366F1, #8B5CF6);
-                    border-radius: 50%;
-                    margin: 0 auto 40px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 48px;
-                    animation: glowPulse 3s ease-in-out infinite;
-                    position: relative;
-                }}
-                
-                .verification-badge::after {{
-                    content: '';
-                    position: absolute;
-                    inset: -8px;
-                    border-radius: 50%;
-                    background: linear-gradient(45deg, #6366F1, #8B5CF6, #EC4899, #F59E0B);
-                    z-index: -1;
-                    animation: gradientShift 3s ease infinite;
-                    opacity: 0.3;
-                }}
-                
-                .title {{
-                    font-family: 'Poppins', sans-serif;
-                    color: #1F2937;
-                    font-size: 36px;
-                    font-weight: 700;
-                    text-align: center;
-                    margin-bottom: 20px;
-                    letter-spacing: -1px;
-                    background: linear-gradient(135deg, #1F2937, #4B5563, #6B7280);
-                    -webkit-background-clip: text;
-                    background-clip: text;
-                    animation: slideInRight 1s ease-out 0.5s both;
-                }}
-                
-                .subtitle {{
-                    color: #6B7280;
-                    font-size: 18px;
-                    text-align: center;
-                    margin-bottom: 50px;
-                    line-height: 1.7;
-                    font-weight: 400;
-                    animation: fadeInUp 1s ease-out 0.7s both;
-                }}
-                
-                .otp-container {{
-                    background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
-                    border: 3px solid transparent;
-                    background-clip: padding-box;
-                    border-radius: 20px;
-                    padding: 40px;
-                    margin: 50px 0;
-                    text-align: center;
-                    position: relative;
-                    overflow: hidden;
-                    animation: bounceIn 0.8s ease-out 1s both;
-                }}
-                
-                .otp-container::before {{
-                    content: '';
-                    position: absolute;
-                    inset: 0;
-                    padding: 3px;
-                    background: linear-gradient(45deg, #6366F1, #8B5CF6, #EC4899, #F59E0B, #10B981);
-                    border-radius: 20px;
-                    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-                    mask-composite: exclude;
-                    animation: gradientShift 4s ease infinite;
-                }}
-                
-                .otp-container::after {{
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    height: 6px;
-                    background: linear-gradient(90deg, #6366F1, #8B5CF6, #EC4899);
-                    border-radius: 20px 20px 0 0;
-                }}
-                
-                .otp-label {{
-                    color: #374151;
-                    font-size: 14px;
-                    font-weight: 700;
-                    text-transform: uppercase;
-                    letter-spacing: 2px;
-                    margin-bottom: 20px;
-                    position: relative;
-                    z-index: 1;
-                }}
-                
-                .otp-code {{
-                    font-size: 48px;
-                    font-weight: 800;
-                    color: #6366F1;
-                    letter-spacing: 12px;
-                    font-family: 'Poppins', monospace;
-                    margin: 0;
-                    text-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
-                    background: linear-gradient(45deg, #6366F1, #8B5CF6);
-                    -webkit-background-clip: text;
-                    background-clip: text;
-                    position: relative;
-                    z-index: 1;
-                    animation: textShimmer 2s ease infinite;
-                }}
-                
-                .features-grid {{
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                    gap: 24px;
-                    margin: 50px 0;
-                }}
-                
-                .feature-card {{
-                    background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
-                    padding: 32px 24px;
-                    border-radius: 16px;
-                    text-align: center;
-                    border: 1px solid rgba(99, 102, 241, 0.1);
-                    transition: all 0.3s ease;
-                    position: relative;
-                    overflow: hidden;
-                    animation: fadeInUp 0.6s ease-out calc(1.2s + var(--delay, 0s)) both;
-                }}
-                
-                .feature-card:hover {{
-                    transform: translateY(-8px);
-                    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
-                    border-color: rgba(99, 102, 241, 0.3);
-                }}
-                
-                .feature-card::before {{
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    height: 4px;
-                    background: linear-gradient(90deg, #6366F1, #8B5CF6, #EC4899);
-                    transform: scaleX(0);
-                    transition: transform 0.3s ease;
-                }}
-                
-                .feature-card:hover::before {{
-                    transform: scaleX(1);
-                }}
-                
-                .feature-icon {{
-                    font-size: 40px;
-                    margin-bottom: 16px;
-                    animation: bounceIn 0.6s ease-out calc(1.4s + var(--delay, 0s)) both;
-                }}
-                
-                .feature-title {{
-                    font-size: 18px;
-                    font-weight: 600;
-                    color: #374151;
-                    margin-bottom: 12px;
-                    font-family: 'Poppins', sans-serif;
-                }}
-                
-                .feature-desc {{
-                    font-size: 14px;
-                    color: #6B7280;
-                    line-height: 1.6;
-                }}
-                
-                .cta-section {{
-                    text-align: center;
-                    margin: 50px 0;
-                    animation: fadeInUp 1s ease-out 1.5s both;
-                }}
-                
-                .cta-button {{
-                    display: inline-block;
-                    background: linear-gradient(135deg, #6366F1, #8B5CF6);
-                    color: white;
-                    padding: 18px 40px;
-                    text-decoration: none;
-                    border-radius: 16px;
-                    font-weight: 600;
-                    font-size: 18px;
-                    letter-spacing: 0.5px;
-                    transition: all 0.3s ease;
-                    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
-                    position: relative;
-                    overflow: hidden;
-                }}
-                
-                .cta-button::before {{
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: -100%;
-                    width: 100%;
-                    height: 100%;
-                    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-                    transition: left 0.5s;
-                }}
-                
-                .cta-button:hover {{
-                    transform: translateY(-3px);
-                    box-shadow: 0 12px 40px rgba(99, 102, 241, 0.5);
-                }}
-                
-                .cta-button:hover::before {{
-                    left: 100%;
-                }}
-                
-                .footer {{
-                    background: linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 100%);
-                    padding: 40px;
-                    text-align: center;
-                    border-top: 1px solid #E5E7EB;
-                }}
-                
-                .social-links {{
-                    display: flex;
-                    justify-content: center;
-                    gap: 20px;
-                    margin-bottom: 24px;
-                }}
-                
-                .social-link {{
-                    width: 48px;
-                    height: 48px;
-                    background: linear-gradient(135deg, #E5E7EB, #D1D5DB);
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    text-decoration: none;
-                    color: #6B7280;
-                    font-size: 20px;
-                    transition: all 0.3s ease;
-                }}
-                
-                .social-link:hover {{
-                    background: linear-gradient(135deg, #6366F1, #8B5CF6);
-                    color: white;
-                    transform: translateY(-3px) scale(1.1);
-                }}
-                
-                .footer-text {{
-                    color: #6B7280;
-                    font-size: 16px;
-                    margin-bottom: 20px;
-                    line-height: 1.6;
-                }}
-                
-                .copyright {{
-                    color: #9CA3AF;
-                    font-size: 13px;
-                    margin-top: 20px;
-                }}
-                
-                @media (max-width: 768px) {{
-                    body {{ padding: 10px; }}
-                    .content {{ padding: 40px 30px; }}
-                    .title {{ font-size: 28px; }}
-                    .otp-code {{ font-size: 36px; letter-spacing: 8px; }}
-                    .features-grid {{ grid-template-columns: 1fr; }}
-                    .logo {{ font-size: 32px; }}
-                }}
-            </style>
+            <!--[if mso]>
+            <noscript>
+                <xml>
+                    <o:OfficeDocumentSettings>
+                        <o:PixelsPerInch>96</o:PixelsPerInch>
+                    </o:OfficeDocumentSettings>
+                </xml>
+            </noscript>
+            <![endif]-->
         </head>
-        <body>
-            <div class="email-container">
-                <div class="header">
-                    <div class="floating-element">✨</div>
-                    <div class="floating-element">💫</div>
-                    <div class="floating-element">🌟</div>
-                    <div class="floating-element">⭐</div>
-                    <div class="floating-element">�</div>
-                    
-                    <div class="logo">✍️ Blogify</div>
-                    <div class="tagline">Where Every Word Matters</div>
-                </div>
-                
-                <div class="content">
-                    <div class="verification-badge">🎯</div>
-                    
-                    <h1 class="title">You're Almost In!</h1>
-                    <p class="subtitle">
-                        Welcome to Blogify, the platform where creativity meets community! 
-                        You're just one step away from joining thousands of passionate writers. 
-                        Verify your email to unlock your creative potential.
-                    </p>
-                    
-                    <div class="otp-container">
-                        <div class="otp-label">Your Magic Code</div>
-                        <div class="otp-code">{otp}</div>
-                    </div>
-                    
-                    <div class="features-grid">
-                        <div class="feature-card" style="--delay: 0s;">
-                            <div class="feature-icon">🚀</div>
-                            <div class="feature-title">Launch Your Voice</div>
-                            <div class="feature-desc">Start publishing your thoughts, stories, and ideas with our powerful editor</div>
-                        </div>
-                        <div class="feature-card" style="--delay: 0.1s;">
-                            <div class="feature-icon">🌍</div>
-                            <div class="feature-title">Global Community</div>
-                            <div class="feature-desc">Connect with readers and writers from around the world</div>
-                        </div>
-                        <div class="feature-card" style="--delay: 0.2s;">
-                            <div class="feature-icon">📊</div>
-                            <div class="feature-title">Track Your Impact</div>
-                            <div class="feature-desc">See how your content performs with detailed analytics</div>
-                        </div>
-                        <div class="feature-card" style="--delay: 0.3s;">
-                            <div class="feature-icon">💎</div>
-                            <div class="feature-title">Premium Tools</div>
-                            <div class="feature-desc">Access advanced formatting, SEO tools, and monetization options</div>
-                        </div>
-                    </div>
-                    
-                    <div class="cta-section">
-                        <a href="#" class="cta-button">Verify & Start Writing</a>
-                    </div>
-                    
-                    <p style="color: #6B7280; font-size: 15px; text-align: center; line-height: 1.7; margin-top: 40px; padding: 20px; background: #F9FAFB; border-radius: 12px; border-left: 4px solid #6366F1;">
-                        <strong>Security Note:</strong> This verification code expires in <strong>10 minutes</strong>. 
-                        If you didn't create this account, simply ignore this email. Your email is safe with us.
-                    </p>
-                </div>
-                
-                <div class="footer">
-                    <div class="social-links">
-                        <a href="#" class="social-link">📧</a>
-                        <a href="#" class="social-link">🐦</a>
-                        <a href="#" class="social-link">📘</a>
-                        <a href="#" class="social-link">📱</a>
-                        <a href="#" class="social-link">💬</a>
-                    </div>
-                    <p class="footer-text">
-                        Have questions? Our community team is here to help!<br>
-                        Contact us at <a href="mailto:hello@blogify.com" style="color: #6366F1; text-decoration: none; font-weight: 600;">hello@blogify.com</a>
-                    </p>
-                    <p class="copyright">
-                        © 2025 Blogify. Made with ❤️ for writers everywhere.<br>
-                        <a href="#" style="color: #9CA3AF; text-decoration: none;">Privacy</a> • 
-                        <a href="#" style="color: #9CA3AF; text-decoration: none;">Terms</a> • 
-                        <a href="#" style="color: #9CA3AF; text-decoration: none;">Help</a>
-                    </p>
-                </div>
-            </div>
+        <body style="margin: 0; padding: 0; background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f8fafc; padding: 40px 0;">
+                <tr>
+                    <td align="center">
+                        <table cellpadding="0" cellspacing="0" border="0" width="600" style="max-width: 600px; background-color: #ffffff; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); overflow: hidden;">
+                            
+                            <!-- Header -->
+                            <tr>
+                                <td style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%); padding: 50px 40px; text-align: center;">
+                                    <h1 style="margin: 0; color: #ffffff; font-size: 32px; font-weight: 700; letter-spacing: -0.5px;">
+                                        ✍️ Blogify
+                                    </h1>
+                                    <p style="margin: 8px 0 0 0; color: rgba(255, 255, 255, 0.9); font-size: 16px; font-weight: 500;">
+                                        Where Every Word Matters
+                                    </p>
+                                </td>
+                            </tr>
+                            
+                            <!-- Content -->
+                            <tr>
+                                <td style="padding: 50px 40px;">
+                                    
+                                    <!-- Verification Icon -->
+                                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                        <tr>
+                                            <td align="center" style="padding-bottom: 30px;">
+                                                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 36px; color: white;">
+                                                    🎯
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                    <!-- Main Title -->
+                                    <h2 style="margin: 0 0 20px 0; color: #1f2937; font-size: 28px; font-weight: 700; text-align: center; letter-spacing: -0.5px;">
+                                        You're Almost In!
+                                    </h2>
+                                    
+                                    <!-- Subtitle -->
+                                    <p style="margin: 0 0 40px 0; color: #6b7280; font-size: 16px; line-height: 1.6; text-align: center;">
+                                        Welcome to Blogify, the platform where creativity meets community! 
+                                        You're just one step away from joining thousands of passionate writers. 
+                                        Verify your email to unlock your creative potential.
+                                    </p>
+                                    
+                                    <!-- OTP Container -->
+                                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin: 40px 0;">
+                                        <tr>
+                                            <td align="center">
+                                                <table cellpadding="0" cellspacing="0" border="0" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border: 2px solid #e2e8f0; border-radius: 12px; padding: 30px;">
+                                                    <tr>
+                                                        <td align="center">
+                                                            <p style="margin: 0 0 15px 0; color: #374151; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">
+                                                                Your Verification Code
+                                                            </p>
+                                                            <div style="font-size: 36px; font-weight: 700; color: #6366f1; letter-spacing: 6px; font-family: monospace; margin: 0; text-align: center;">
+                                                                {otp}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                    <!-- Features Section -->
+                                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin: 40px 0;">
+                                        <tr>
+                                            <td style="padding: 20px 0;">
+                                                <h3 style="margin: 0 0 20px 0; color: #1f2937; font-size: 20px; font-weight: 600; text-align: center;">
+                                                    🚀 What awaits you in Blogify:
+                                                </h3>
+                                                
+                                                <!-- Feature Items -->
+                                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                                    <tr>
+                                                        <td style="padding: 8px 0; color: #374151; font-size: 15px; line-height: 1.6;">
+                                                            ✍️ <strong>Powerful Editor:</strong> Write with our intuitive, feature-rich editor
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding: 8px 0; color: #374151; font-size: 15px; line-height: 1.6;">
+                                                            🌐 <strong>Global Audience:</strong> Reach readers from around the world
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding: 8px 0; color: #374151; font-size: 15px; line-height: 1.6;">
+                                                            📊 <strong>Analytics Dashboard:</strong> Track your content's performance
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding: 8px 0; color: #374151; font-size: 15px; line-height: 1.6;">
+                                                            👥 <strong>Writer Community:</strong> Connect with fellow creators
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding: 8px 0; color: #374151; font-size: 15px; line-height: 1.6;">
+                                                            🎨 <strong>Customization:</strong> Personalize your author profile
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                    <!-- CTA Button -->
+                                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin: 40px 0;">
+                                        <tr>
+                                            <td align="center">
+                                                <a href="#" style="display: inline-block; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #ffffff; text-decoration: none; padding: 16px 32px; border-radius: 12px; font-weight: 600; font-size: 16px; letter-spacing: 0.5px;">
+                                                    Verify & Start Writing
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                    <!-- Security Note -->
+                                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin: 30px 0;">
+                                        <tr>
+                                            <td style="background: #f9fafb; border-left: 4px solid #6366f1; border-radius: 8px; padding: 20px;">
+                                                <p style="margin: 0; color: #6b7280; font-size: 14px; line-height: 1.6;">
+                                                    <strong style="color: #374151;">🔒 Security Note:</strong> This verification code expires in <strong>10 minutes</strong>. 
+                                                    If you didn't create this account, simply ignore this email. Your email is safe with us.
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                </td>
+                            </tr>
+                            
+                            <!-- Footer -->
+                            <tr>
+                                <td style="background: #f9fafb; padding: 30px 40px; text-align: center; border-top: 1px solid #e5e7eb;">
+                                    
+                                    <!-- Social Links -->
+                                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                        <tr>
+                                            <td align="center" style="padding-bottom: 20px;">
+                                                <a href="#" style="display: inline-block; margin: 0 8px; width: 36px; height: 36px; background: #e5e7eb; border-radius: 50%; text-decoration: none; line-height: 36px; color: #6b7280; font-size: 16px;">📧</a>
+                                                <a href="#" style="display: inline-block; margin: 0 8px; width: 36px; height: 36px; background: #e5e7eb; border-radius: 50%; text-decoration: none; line-height: 36px; color: #6b7280; font-size: 16px;">🐦</a>
+                                                <a href="#" style="display: inline-block; margin: 0 8px; width: 36px; height: 36px; background: #e5e7eb; border-radius: 50%; text-decoration: none; line-height: 36px; color: #6b7280; font-size: 16px;">📘</a>
+                                                <a href="#" style="display: inline-block; margin: 0 8px; width: 36px; height: 36px; background: #e5e7eb; border-radius: 50%; text-decoration: none; line-height: 36px; color: #6b7280; font-size: 16px;">📱</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                    <p style="margin: 0 0 15px 0; color: #6b7280; font-size: 14px; line-height: 1.6;">
+                                        Have questions? Our community team is here to help!<br>
+                                        Contact us at <a href="mailto:hello@blogify.com" style="color: #6366f1; text-decoration: none; font-weight: 600;">hello@blogify.com</a>
+                                    </p>
+                                    
+                                    <p style="margin: 0; color: #9ca3af; font-size: 12px;">
+                                        © 2025 Blogify. Made with ❤️ for writers everywhere.<br>
+                                        <a href="#" style="color: #9ca3af; text-decoration: none;">Privacy</a> • 
+                                        <a href="#" style="color: #9ca3af; text-decoration: none;">Terms</a> • 
+                                        <a href="#" style="color: #9ca3af; text-decoration: none;">Help</a>
+                                    </p>
+                                </td>
+                            </tr>
+                            
+                        </table>
+                    </td>
+                </tr>
+            </table>
         </body>
         </html>
         """
