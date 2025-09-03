@@ -26,3 +26,5 @@ class JWTAuth(HttpBearer):
             except User.DoesNotExist:
                 return None
         return None
+    
+

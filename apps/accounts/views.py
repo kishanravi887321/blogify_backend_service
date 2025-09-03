@@ -56,7 +56,7 @@ def register(request, data: RegisterS):
 
     if not data.otp:
         return {"message": "OTP is required", "status": 400}
-    if not cache.get(f"otp:register:{email}")==data.otp:
+    if not cache.get(f"otp:register:{email}")==data.otp.strip():
         return {"message": "Invalid or expired OTP", "status": 403}
 
     user = User(
@@ -67,6 +67,8 @@ def register(request, data: RegisterS):
     )
     user.set_password(data.password.strip())
     user.save()
+    welcome_greet=WelcomeEmailSender(user.email,user.username)
+    welcome_greet.send()
 
     return {
         "message": "User registered successfully",
@@ -336,7 +338,7 @@ def auth_registration(request, data: RegistrationOtpS):
     if  user:
         return {"message": "User already exists", "status": 401}
 
-    otp_sender = RegistrationOtpSender(user.email)
+    otp_sender = RegistrationOtpSender(data.email)
     otp_sender.send()
 
     return {"message": "OTP sent to email", "status": 200}
