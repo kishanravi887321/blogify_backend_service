@@ -57,7 +57,9 @@ def login(request,data:LoginS):
             "username": user.username,
             "email": user.email,
             "fullname": user.fullname,
-            "bio": user.bio
+            "bio": user.bio,
+            "profile":user.profile,
+            "cover":user.cover
         }, "status": 200}
     return {"message": "Invalid credentials", "status": 401}
 
