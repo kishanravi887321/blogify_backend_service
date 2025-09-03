@@ -138,7 +138,6 @@ def refresh(request, data: RefreshS):
     except Exception as e:
         return {"message": f"Invalid refresh token: {str(e)}", "status": 401}
 
-@router.get("/protected", auth=JWTAuth())
-def protected(request):
-    user = request.auth    
-    return {"message": f"Hello {user.username}, you are authenticated!"}
+
+
+
