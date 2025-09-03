@@ -40,6 +40,6 @@ def refresh_access_token(refresh_token: str) -> str:
     if payload.get("type") != "refresh":
         raise HttpError(401, "Invalid refresh token type")
     # issue new access token using same user payload
-    new_payload = {"user_id": payload["user_id"]}
+    new_payload = {"email": payload["email"]}
     return create_access_token(new_payload)
 
