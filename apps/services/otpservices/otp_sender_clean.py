@@ -6,7 +6,7 @@ class LoginOtpSender(BaseOtpEmailSender):
 
     def send(self):
         otp = self.generate_otp()
-        subject = "âœï¸ Blogify - Secure Login Verification"
+        subject = "✍️ Blogify - Secure Login Verification"
         
         html_content = f"""
         <!DOCTYPE html>
@@ -221,12 +221,12 @@ class LoginOtpSender(BaseOtpEmailSender):
         <body>
             <div class="email-container">
                 <div class="header">
-                    <div class="logo">âœï¸ Blogify</div>
+                    <div class="logo">✍️ Blogify</div>
                     <div class="tagline">Where Stories Come to Life</div>
                 </div>
                 
                 <div class="content">
-                    <div class="security-icon">ðŸ”</div>
+                    <div class="security-icon">🔐</div>
                     
                     <h1 class="title">Secure Login Verification</h1>
                     <p class="subtitle">
@@ -241,7 +241,7 @@ class LoginOtpSender(BaseOtpEmailSender):
                     
                     <div class="security-tips">
                         <div class="tips-title">
-                            ðŸ›¡ï¸ Security Best Practices
+                            🛡️ Security Best Practices
                         </div>
                         <ul class="tips-list">
                             <li>This code expires in <strong>10 minutes</strong> for your security</li>
@@ -263,7 +263,7 @@ class LoginOtpSender(BaseOtpEmailSender):
                         <a href="mailto:support@blogify.com" style="color: #8B5CF6; text-decoration: none;">support@blogify.com</a>
                     </p>
                     <p class="copyright">
-                        Â© 2025 Blogify. All rights reserved. | 
+                        © 2025 Blogify. All rights reserved. | 
                         <a href="#" style="color: #9CA3AF; text-decoration: none;">Privacy Policy</a> | 
                         <a href="#" style="color: #9CA3AF; text-decoration: none;">Terms of Service</a>
                     </p>
@@ -284,15 +284,15 @@ class LoginOtpSender(BaseOtpEmailSender):
         This code expires in 10 minutes for your security.
         
         SECURITY TIPS:
-        â€¢ Never share this code with anyone
-        â€¢ If you didn't request this login, secure your account immediately
-        â€¢ Contact support@blogify.com if you need assistance
+        • Never share this code with anyone
+        • If you didn't request this login, secure your account immediately
+        • Contact support@blogify.com if you need assistance
         
         Happy blogging!
         The Blogify Team
         
         ---
-        Â© 2025 Blogify. All rights reserved.
+        © 2025 Blogify. All rights reserved.
         """
 
         self.send_email(subject, text_content, html_content=html_content)
@@ -305,7 +305,7 @@ class ForgetPasswordOtpSender(BaseOtpEmailSender):
 
     def send(self):
         otp = self.generate_otp()
-        subject = "ðŸ”‘ Blogify - Password Reset Verification"
+        subject = "🔑 Blogify - Password Reset Verification"
         
         html_content = f"""
         <!DOCTYPE html>
@@ -454,12 +454,12 @@ class ForgetPasswordOtpSender(BaseOtpEmailSender):
         <body>
             <div class="email-container">
                 <div class="header">
-                    <div class="logo">ðŸ”‘ Blogify</div>
+                    <div class="logo">🔑 Blogify</div>
                     <div class="tagline">Password Recovery Service</div>
                 </div>
                 
                 <div class="content">
-                    <div class="reset-icon">ðŸ”“</div>
+                    <div class="reset-icon">🔓</div>
                     
                     <h1 class="title">Reset Your Password</h1>
                     <p class="subtitle">
@@ -474,7 +474,7 @@ class ForgetPasswordOtpSender(BaseOtpEmailSender):
                     
                     <div class="warning-section">
                         <div class="warning-title">
-                            âš ï¸ Important Security Notice
+                            ⚠️ Important Security Notice
                         </div>
                         <p class="warning-text">
                             If you didn't request this password reset, please ignore this email and contact our 
@@ -490,7 +490,7 @@ class ForgetPasswordOtpSender(BaseOtpEmailSender):
                         <a href="mailto:support@blogify.com" style="color: #EF4444; text-decoration: none;">support@blogify.com</a>
                     </p>
                     <p style="margin-top: 16px; color: #9CA3AF; font-size: 12px;">
-                        Â© 2025 Blogify. All rights reserved.
+                        © 2025 Blogify. All rights reserved.
                     </p>
                 </div>
             </div>
@@ -507,14 +507,14 @@ class ForgetPasswordOtpSender(BaseOtpEmailSender):
         Your verification code is: {otp}
         
         SECURITY NOTICE:
-        â€¢ This code expires in 10 minutes
-        â€¢ If you didn't request this reset, contact support immediately
-        â€¢ The code can only be used once for your protection
+        • This code expires in 10 minutes
+        • If you didn't request this reset, contact support immediately
+        • The code can only be used once for your protection
         
         Need help? Contact support@blogify.com
         
         ---
-        Â© 2025 Blogify. All rights reserved.
+        © 2025 Blogify. All rights reserved.
         """
 
         self.send_email(subject, text_content, html_content=html_content)
@@ -527,7 +527,7 @@ class WelcomeEmailSender(BaseOtpEmailSender):
         self.username = username or email
 
     def send(self):
-        subject = "ðŸŽ‰ Welcome to Blogify - Your Writing Journey Begins!"
+        subject = "🎉 Welcome to Blogify - Your Writing Journey Begins!"
         
         html_content = f"""
         <!DOCTYPE html>
@@ -651,12 +651,12 @@ class WelcomeEmailSender(BaseOtpEmailSender):
         <body>
             <div class="email-container">
                 <div class="header">
-                    <div class="logo">âœï¸ Blogify</div>
+                    <div class="logo">✍️ Blogify</div>
                     <div class="welcome-text">Welcome to the Community!</div>
                 </div>
                 
                 <div class="content">
-                    <h1 class="greeting">Hello {self.username}! ðŸ‘‹</h1>
+                    <h1 class="greeting">Hello {self.username}! 👋</h1>
                     <p class="intro-text">
                         Welcome to Blogify, where your stories come to life! We're thrilled to have you join our 
                         community of passionate writers, creators, and storytellers. Your writing journey starts now!
@@ -664,22 +664,22 @@ class WelcomeEmailSender(BaseOtpEmailSender):
                     
                     <div class="feature-grid">
                         <div class="feature-card">
-                            <div class="feature-icon">âœï¸</div>
+                            <div class="feature-icon">✍️</div>
                             <div class="feature-title">Rich Editor</div>
                             <div class="feature-desc">Create beautiful posts with our intuitive writing tools</div>
                         </div>
                         <div class="feature-card">
-                            <div class="feature-icon">ðŸŒ</div>
+                            <div class="feature-icon">🌍</div>
                             <div class="feature-title">Global Reach</div>
                             <div class="feature-desc">Share your stories with readers worldwide</div>
                         </div>
                         <div class="feature-card">
-                            <div class="feature-icon">ðŸ“ˆ</div>
+                            <div class="feature-icon">📈</div>
                             <div class="feature-title">Analytics</div>
                             <div class="feature-desc">Track your content performance and engagement</div>
                         </div>
                         <div class="feature-card">
-                            <div class="feature-icon">ðŸ‘¥</div>
+                            <div class="feature-icon">👥</div>
                             <div class="feature-title">Community</div>
                             <div class="feature-desc">Connect with fellow writers and readers</div>
                         </div>
@@ -692,7 +692,7 @@ class WelcomeEmailSender(BaseOtpEmailSender):
                         <a href="mailto:support@blogify.com" style="color: #667eea; text-decoration: none;">support@blogify.com</a>
                     </p>
                     <p style="margin-top: 16px; color: #9CA3AF; font-size: 12px;">
-                        Â© 2025 Blogify. All rights reserved.
+                        © 2025 Blogify. All rights reserved.
                     </p>
                 </div>
             </div>
@@ -710,10 +710,10 @@ class WelcomeEmailSender(BaseOtpEmailSender):
         join our community of passionate writers and creators.
         
         WHAT YOU CAN DO:
-        â€¢ Create beautiful posts with our rich editor
-        â€¢ Share your stories with readers worldwide  
-        â€¢ Track your content performance
-        â€¢ Connect with fellow writers
+        • Create beautiful posts with our rich editor
+        • Share your stories with readers worldwide  
+        • Track your content performance
+        • Connect with fellow writers
         
         Ready to start writing? Visit your dashboard and create your first post!
         
@@ -723,11 +723,13 @@ class WelcomeEmailSender(BaseOtpEmailSender):
         The Blogify Team
         
         ---
-        Â© 2025 Blogify. All rights reserved.
+        © 2025 Blogify. All rights reserved.
         """
 
         self.send_email(subject, text_content, html_content=html_content)
         return "Welcome email sent successfully!"
+
+
 
 
 class RegistrationOtpSender(BaseOtpEmailSender):
