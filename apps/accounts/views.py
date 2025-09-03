@@ -8,6 +8,8 @@ from google.auth.transport import requests as google_requests
 from django.contrib.auth import authenticate,get_user_model
 from auth.auth_tokens import create_access_token,create_refresh_token,decode_token,refresh_access_token
 router = Router()
+from ..services.otpservices.otp_sender_clean import RegistrationOtpSender,WelcomeEmailSender,ForgetPasswordOtpSender,LoginOtpSender
+
 from .backend import JWTAuth
 User = get_user_model()
 # // making the doctor route for check
@@ -248,8 +250,15 @@ class ForgetPassS(Schema):
 @router.post("/forget-password")
 def forget_password(request, data: ForgetPassS):
     user = User.objects.filter(email=data.email).first()
+
     if not user:
         return {"message": "User not found", "status": 401}
+
+    otp_sender = ForgetPasswordOtpSender('kishanravi887321@gmail.com')
+    otp_sender.send()
+
+    return {"message": "OTP sent to email", "status": 200}
+
  
     user.set_password(data.new_password)
     user.save()
