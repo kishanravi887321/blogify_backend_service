@@ -39,11 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
-    'accounts',
-   
-    'services',
-   
+    'apps.blog',
+    'apps.accounts',
+    'apps.services',
 ]
 AUTH_USER_MODEL = 'accounts.User'
 
@@ -57,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'config.urls'
+ROOT_URLCONF = 'apps.config.urls'
 
 TEMPLATES = [
     {
@@ -74,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = 'apps.config.wsgi.application'
 
 
 # Database
@@ -106,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 AUTHENTICATION_BACKENDS = [
-    'accounts.backend.EmailBackend',
+    'apps.accounts.backend.EmailBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
