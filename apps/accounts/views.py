@@ -159,7 +159,7 @@ def update_profile(request, data: UpdateProfileS):
     if data.username is not None:
         # Check if username is already taken by another user
         if User.objects.filter(username=data.username).exclude(id=user.id).exists():
-            return {"message": "Username already taken", "status": 400}
+            return {"message": "Username already taken", "status": 401}
         user.username = data.username
         update_fields.append('username')
     
@@ -234,7 +234,7 @@ class UpdatePassS(Schema):
 def change_password(request, data: UpdatePassS):
     user = request.auth
     if user.check_password(data.old_password) is False:
-        return {"message": "Old password is incorrect", "status": 400}
+        return {"message": "Old password is incorrect", "status": 401}
     user.set_password(data.new_password)
     user.save()
     return {"message": "Password changed successfully", "status": 200}
@@ -249,7 +249,7 @@ class ForgetPassS(Schema):
 def forget_password(request, data: ForgetPassS):
     user = User.objects.filter(email=data.email).first()
     if not user:
-        return {"message": "User not found", "status": 404}
+        return {"message": "User not found", "status": 401}
  
     user.set_password(data.new_password)
     user.save()
