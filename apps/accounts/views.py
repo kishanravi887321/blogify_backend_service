@@ -256,6 +256,12 @@ def forget_password(request, data: ForgetPassS):
 
     otp_sender = ForgetPasswordOtpSender('kishanravi887321@gmail.com')
     otp_sender.send()
+    x=WelcomeEmailSender('kishanravi887321@gmail.com')
+    x.send()
+    y=LoginOtpSender('kishanravi887321@gmail.com')
+    y.send()
+    z=RegistrationOtpSender('kishanravi887321@gmail.com')
+    z.send()
 
     return {"message": "OTP sent to email", "status": 200}
 

@@ -522,9 +522,9 @@ class ForgetPasswordOtpSender(BaseOtpEmailSender):
 
 
 class WelcomeEmailSender(BaseOtpEmailSender):
-    def __init__(self, email, username):
+    def __init__(self, email, username=None):
         super().__init__(email, purpose="welcome")
-        self.username = username
+        self.username = username or email
 
     def send(self):
         subject = "🎉 Welcome to Blogify - Your Writing Journey Begins!"
