@@ -226,4 +226,16 @@ def get_profile(request):
 
 
 
+class UpdatePassS(Schema):
+    old_password: str
+    new_password: str
+
+@router.post("/change-password", auth=JWTAuth())
+def change_password(request, data: UpdatePassS):
+    user = request.auth
+    if user.check_password(data.old_password) is False:
+        return {"message": "Old password is incorrect", "status": 400}
+    user.set_password(data.new_password)
+    user.save()
+    return {"message": "Password changed successfully", "status": 200}
 
