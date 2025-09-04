@@ -1,7 +1,7 @@
 from urllib import request
 from django.shortcuts import render
 from typing import Optional
-from ninja import File
+from ninja import File, Form
 from ninja.files import UploadedFile
 import cloudinary.uploader
 from ninja import Router, Schema
@@ -97,6 +97,7 @@ def login(request, data: LoginS):
     password = data.password.strip()
 
     user = authenticate(request, email=email, password=password)
+    print(user)
 
     if user:
         access_token = create_access_token(
@@ -202,7 +203,7 @@ class UpdateProfileS(Schema):
 @router.patch("/update-profile", auth=JWTAuth())
 def update_profile(
     request,
-    data: UpdateProfileS,
+    data: UpdateProfileS = Form(...), 
     profile: UploadedFile = File(None),
     cover: UploadedFile = File(None),
 ):
