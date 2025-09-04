@@ -265,7 +265,7 @@ def update_profile(
 
 
 
-# ==================== GET PROFILE ====================
+# ==================== GET PROFILE ======================
 @router.get("/profile", auth=JWTAuth())
 def get_profile(request):
     user = request.auth
