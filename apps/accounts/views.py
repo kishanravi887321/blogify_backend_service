@@ -342,3 +342,6 @@ def auth_registration(request, data: RegistrationOtpS):
     otp_sender.send()
 
     return {"message": "OTP sent to email", "status": 200}
+
+
+
