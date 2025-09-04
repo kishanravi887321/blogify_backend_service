@@ -1,6 +1,9 @@
 from urllib import request
 from django.shortcuts import render
 from typing import Optional
+from ninja import File
+from ninja.files import UploadedFile
+import cloudinary.uploader
 from ninja import Router, Schema
 from django.conf import settings
 from google.oauth2 import id_token as google_id_token
@@ -186,18 +189,23 @@ def refresh(request, data: RefreshS):
 
 
 # ==================== UPDATE PROFILE ====================
+
+
 class UpdateProfileS(Schema):
     username: Optional[str] = None
     fullname: Optional[str] = None
     bio: Optional[str] = None
     location: Optional[str] = None
-    profile: Optional[str] = None
-    cover: Optional[str] = None
     social_links: Optional[dict] = None
 
 
 @router.patch("/update-profile", auth=JWTAuth())
-def update_profile(request, data: UpdateProfileS):
+def update_profile(
+    request,
+    data: UpdateProfileS,
+    profile: UploadedFile = File(None),
+    cover: UploadedFile = File(None),
+):
     user = request.auth
     update_fields = []
 
@@ -220,12 +228,16 @@ def update_profile(request, data: UpdateProfileS):
         user.location = data.location.strip()
         update_fields.append("location")
 
-    if data.profile is not None:
-        user.profile = data.profile.strip()
+    # ✅ Upload profile image to Cloudinary
+    if profile is not None:
+        upload_result = cloudinary.uploader.upload(profile.file, folder="profiles")
+        user.profile = upload_result["secure_url"]
         update_fields.append("profile")
 
-    if data.cover is not None:
-        user.cover = data.cover.strip()
+    # ✅ Upload cover image to Cloudinary
+    if cover is not None:
+        upload_result = cloudinary.uploader.upload(cover.file, folder="covers")
+        user.cover = upload_result["secure_url"]
         update_fields.append("cover")
 
     if data.social_links is not None:
@@ -249,6 +261,7 @@ def update_profile(request, data: UpdateProfileS):
         },
         "status": 200,
     }
+
 
 
 # ==================== GET PROFILE ====================
