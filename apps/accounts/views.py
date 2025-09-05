@@ -314,12 +314,13 @@ def forget_password(request, data: ForgetPassS):
     new_password = data.new_password.strip()
 
     user = User.objects.filter(email=email).first()
-
-    if cache.get(f"otp:forget:{email}") != otp:
-        return {"message": "Invalid or expired OTP", "status": 401}
-
     if not user:
         return {"message": "User not found", "status": 401}
+
+    if cache.get(f"otp:forget:{email}") != otp:
+        return {"message": "Invalid or expired OTP", "status": 402}
+
+    
 
     user.set_password(new_password)
     user.save()
