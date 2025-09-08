@@ -35,11 +35,11 @@ def decode_token(token: str) -> dict:
         raise HttpError(401, "Invalid token")
 
 
-def refresh_access_token(refresh_token: str) -> str:
-    payload = decode_token(refresh_token)
-    if payload.get("type") != "refresh":
-        raise HttpError(401, "Invalid refresh token type")
-    # issue new access token using same user payload
-    new_payload = {"email": payload["email"]}
-    return create_access_token(new_payload)
+# def refresh_access_token(refresh_token: str) -> str:
+#     payload = decode_token(refresh_token)
+#     if payload.get("type") != "refresh":
+#         raise HttpError(401, "Invalid refresh token type")
+#     # issue new access token using same user payload
+#     new_payload = {"email": payload["email"]}
+#     return create_access_token(new_payload)
 
