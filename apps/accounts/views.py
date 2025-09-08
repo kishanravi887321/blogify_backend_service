@@ -324,6 +324,7 @@ def forget_password(request, data: ForgetPassS):
 
     user.set_password(new_password)
     user.save()
+    cache.delete(f"otp:forget:{email}")
     return {"message": "Password reset successfully", "status": 200}
 
 
