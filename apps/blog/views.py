@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate
 
 
 
-router=Router()
+router=Router(tags=["Blog"])
 
 
 # Create your views here.
