@@ -3,11 +3,11 @@ from ninja  import  Router,Schema
 
 
 
-route=Router()
+router=Router()
 
 
 # Create your views here.
 
-@route.get("/hello")
+@router.get("/hello")
 def hello(request):
     return  {"message":"Hello World from Blog app","status":202}
